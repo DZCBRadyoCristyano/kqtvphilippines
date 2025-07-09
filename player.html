@@ -83,21 +83,6 @@
       100% { transform: scale(1); opacity: 1; }
     }
 
-    .now-playing {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-      background: rgba(0, 0, 0, 0.6);
-      color: #fff;
-      padding: 5px 10px;
-      border-radius: 4px;
-      font-family: sans-serif;
-      font-size: 14px;
-      font-weight: bold;
-      z-index: 9999;
-      pointer-events: none;
-    }
-
     .clock {
       position: absolute;
       bottom: 10px;
@@ -167,7 +152,7 @@
   </div>
 
   <!-- GOLD Start Overlay -->
-  <div id="start-overlay">Click to Watch KQTV PH</div>
+  <div id="start-overlay">Click anywhere to start watching KQTV PH</div>
 
   <script>
     const player = jwplayer("player-container").setup({
@@ -203,11 +188,6 @@
       liveBadge.className = "live-badge";
       liveBadge.innerText = "LIVE";
       container.appendChild(liveBadge);
-
-      const nowPlaying = document.createElement("div");
-      nowPlaying.className = "now-playing";
-      nowPlaying.innerText = "Now Playing: KQTV PHILIPPINES";
-      container.appendChild(nowPlaying);
 
       const clock = document.createElement("div");
       clock.className = "clock";
