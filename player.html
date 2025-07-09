@@ -135,36 +135,29 @@
       box-shadow: inset 0 0 30px rgba(0,0,0,0.2);
     }
 
-    .jw-button-container .jw-icon:not(.jw-icon-volume):not(.jw-icon-fullscreen) {
+    /* Hide fullscreen button */
+    .jw-controlbar-right .jw-icon-fullscreen {
       display: none !important;
     }
 
-    .jw-icon-picture-in-picture {
+    /* Show only mute button on left side */
+    .jw-button-container .jw-icon:not(.jw-icon-volume) {
       display: none !important;
     }
 
+    /* Adjust controlbar */
     .jw-controlbar {
       display: flex !important;
-      justify-content: space-between !important;
+      justify-content: flex-start !important;
       align-items: center !important;
+      padding-left: 10px;
     }
 
-    .jw-button-container {
-      display: flex !important;
-      align-items: center !important;
-    }
-
+    /* Raise mute button */
     .jw-controlbar-left .jw-icon-volume {
+      position: relative;
+      top: -6px;  /* adjust as needed */
       display: inline-flex !important;
-    }
-
-    .jw-controlbar-right .jw-icon-fullscreen {
-      display: inline-flex !important;
-    }
-
-    .jw-controlbar-left .jw-icon:not(.jw-icon-volume),
-    .jw-controlbar-right .jw-icon:not(.jw-icon-fullscreen) {
-      display: none !important;
     }
   </style>
 </head>
@@ -230,7 +223,7 @@
       setInterval(updateClock, 1000);
     });
 
-    // Click to play & fullscreen using JWPlayer API (fix black screen)
+    // Click to play & fullscreen using JWPlayer API
     document.getElementById("start-overlay").addEventListener("click", () => {
       document.getElementById("start-overlay").style.display = "none";
       player.play(true);
