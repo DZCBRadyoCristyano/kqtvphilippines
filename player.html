@@ -9,25 +9,17 @@
     html, body {
       margin: 0;
       padding: 0;
-      background: #000;
       height: 100%;
       width: 100%;
-    }
-
-    /* Apply overflow hidden here instead */
-    #wrapper {
-      position: relative;
-      width: 100%;
-      padding-top: 56.25%; /* 16:9 aspect ratio */
-      overflow: hidden; /* ✅ Moved here */
+      background: #000;
+      overflow: hidden;
     }
 
     #player-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      background: #000;
     }
 
     .jwplayer {
@@ -46,17 +38,59 @@
     .top-right { right: 10px; }
 
     @media (max-width: 768px) {
-      .overlay-logo {
-        width: 60px;
-      }
+      .overlay-logo { width: 60px; }
     }
 
     @media (min-width: 769px) {
-      .overlay-logo {
-        width: 100px;
+      .overlay-logo { width: 100px; }
+    }
+
+    /* Live badge */
+    .live-badge {
+      position: absolute;
+      top: 10px;
+      left: 120px; /* Adjust to avoid logo overlap */
+      display: flex;
+      align-items: center;
+      background: rgba(255, 0, 0, 0.9);
+      color: white;
+      font-weight: bold;
+      font-family: sans-serif;
+      font-size: 14px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      z-index: 9999;
+      animation: pulse 1.5s infinite;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+
+    .live-badge::before {
+      content: '';
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 6px;
+      background-color: #fff;
+      border-radius: 50%;
+      animation: pulse-dot 1.5s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.6); opacity: 0.5; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .live-badge {
+        top: 10px;
+        left: 80px;
+        font-size: 12px;
+        padding: 3px 8px;
       }
     }
 
+    /* Show only mute and fullscreen */
     .jw-button-container .jw-icon:not(.jw-icon-volume):not(.jw-icon-fullscreen) {
       display: none !important;
     }
@@ -91,9 +125,7 @@
   </style>
 </head>
 <body>
-  <div id="wrapper">
-    <div id="player-container"></div>
-  </div>
+  <div id="player-container"></div>
 
   <script>
     const player = jwplayer("player-container").setup({
@@ -115,18 +147,26 @@
       const container = player.getContainer();
       container.style.position = "relative";
 
+      // Top-left logo
       const topLeftLogo = document.createElement("img");
       topLeftLogo.src = "https://i.ibb.co/JVMSGcP/MTRCB-RATED-PG-LOGO-DOG-FIX.png";
       topLeftLogo.className = "overlay-logo top-left";
       container.appendChild(topLeftLogo);
 
+      // Top-right logo
       const topRightLogo = document.createElement("img");
       topRightLogo.src = "https://i.ibb.co/rKWg8RLK/Untitled-design.png";
       topRightLogo.className = "overlay-logo top-right";
       container.appendChild(topRightLogo);
+
+      // Live badge
+      const liveBadge = document.createElement("div");
+      liveBadge.className = "live-badge";
+      liveBadge.innerText = "LIVE";
+      container.appendChild(liveBadge);
     });
 
-    // Optional anti-inspect
+    // Optional inspect blocker
     document.addEventListener('contextmenu', event => event.preventDefault());
     document.onkeydown = function(e) {
       if (e.key === "F12" ||
