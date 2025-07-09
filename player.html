@@ -12,12 +12,12 @@
       background: #000;
       width: 100%;
       height: 100%;
-      overflow: hidden;
+      /* ✅ no overflow hidden */
     }
 
     #player-wrapper {
       width: 100%;
-      height: 100vh;
+      min-height: 100vh;
       position: relative;
     }
 
@@ -49,6 +49,7 @@
       }
     }
 
+    /* Controls: only volume and fullscreen */
     .jw-button-container .jw-icon:not(.jw-icon-volume):not(.jw-icon-fullscreen) {
       display: none !important;
     }
@@ -98,7 +99,7 @@
       displaytitle: true,
       title: "KQTV PHILIPPINES",
       controls: true,
-      stretching: "fill",
+      stretching: "uniform",
       abouttext: "KQTV PHILIPPINES",
       aboutlink: "https://kqtvphilippines.xyz/"
     });
@@ -118,7 +119,7 @@
       container.appendChild(topRightLogo);
     });
 
-    // 🔒 Disable Inspect
+    // 🔒 Basic anti-inspect
     document.addEventListener('contextmenu', event => event.preventDefault());
     document.onkeydown = function(e) {
       if (e.key === "F12" ||
@@ -128,13 +129,6 @@
         return false;
       }
     };
-
-    // 📱 Force reload on orientation change (mobile)
-    window.addEventListener("orientationchange", function () {
-      setTimeout(() => {
-        location.reload();
-      }, 500);
-    });
   </script>
 </body>
 </html>
