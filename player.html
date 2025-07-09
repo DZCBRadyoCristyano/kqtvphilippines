@@ -9,17 +9,29 @@
     html, body {
       margin: 0;
       padding: 0;
+      background: #000;
       height: 100%;
       width: 100%;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #player-wrapper {
+      width: 100%;
+      max-width: 100vw;
+      aspect-ratio: 16 / 9;
+      position: relative;
       background: #000;
       overflow: hidden;
     }
 
     #player-container {
-      width: 100vw;
-      height: 100vh;
-      position: relative;
-      background: #000;
+      width: 100%;
+      height: 100%;
     }
 
     .jwplayer {
@@ -38,18 +50,22 @@
     .top-right { right: 10px; }
 
     @media (max-width: 768px) {
-      .overlay-logo { width: 60px; }
+      .overlay-logo {
+        width: 60px;
+      }
     }
 
     @media (min-width: 769px) {
-      .overlay-logo { width: 100px; }
+      .overlay-logo {
+        width: 100px;
+      }
     }
 
-    /* Live badge */
+    /* 🔴 LIVE badge top-left for all devices */
     .live-badge {
       position: absolute;
       top: 10px;
-      left: 120px; /* Adjust to avoid logo overlap */
+      left: 120px;
       display: flex;
       align-items: center;
       background: rgba(255, 0, 0, 0.9);
@@ -83,10 +99,9 @@
 
     @media (max-width: 768px) {
       .live-badge {
-        top: 10px;
-        left: 80px;
         font-size: 12px;
         padding: 3px 8px;
+        left: 75px;
       }
     }
 
@@ -125,7 +140,9 @@
   </style>
 </head>
 <body>
-  <div id="player-container"></div>
+  <div id="player-wrapper">
+    <div id="player-container"></div>
+  </div>
 
   <script>
     const player = jwplayer("player-container").setup({
@@ -159,7 +176,7 @@
       topRightLogo.className = "overlay-logo top-right";
       container.appendChild(topRightLogo);
 
-      // Live badge
+      // LIVE badge (top-left)
       const liveBadge = document.createElement("div");
       liveBadge.className = "live-badge";
       liveBadge.innerText = "LIVE";
