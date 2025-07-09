@@ -9,16 +9,23 @@
     html, body {
       margin: 0;
       padding: 0;
+      background: #000;
       height: 100%;
-      background-color: #000;
-      display: flex;
-      flex-direction: column;
+      width: 100%;
+    }
+
+    #wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* ✅ 16:9 aspect ratio */
     }
 
     #player-container {
-      flex: 1 0 auto;
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      position: relative;
+      height: 100%;
     }
 
     .jwplayer {
@@ -33,13 +40,8 @@
       pointer-events: none;
     }
 
-    .top-left {
-      left: 10px;
-    }
-
-    .top-right {
-      right: 10px;
-    }
+    .top-left { left: 10px; }
+    .top-right { right: 10px; }
 
     @media (max-width: 768px) {
       .overlay-logo {
@@ -53,7 +55,7 @@
       }
     }
 
-    /* Only show mute and fullscreen */
+    /* Show only volume and fullscreen */
     .jw-button-container .jw-icon:not(.jw-icon-volume):not(.jw-icon-fullscreen) {
       display: none !important;
     }
@@ -88,7 +90,9 @@
   </style>
 </head>
 <body>
-  <div id="player-container"></div>
+  <div id="wrapper">
+    <div id="player-container"></div>
+  </div>
 
   <script>
     const player = jwplayer("player-container").setup({
@@ -101,7 +105,7 @@
       displaytitle: true,
       title: "KQTV PHILIPPINES",
       controls: true,
-      stretching: "uniform", // ✅ best choice for natural fit
+      stretching: "uniform", // ✅ natural shape
       abouttext: "KQTV PHILIPPINES",
       aboutlink: "https://kqtvphilippines.xyz/"
     });
