@@ -230,23 +230,14 @@
       setInterval(updateClock, 1000);
     });
 
-    // Click-to-play and proper fullscreen (mobile)
-    document.getElementById("start-overlay").addEventListener("click", async () => {
+    // Click to play & fullscreen using JWPlayer API (fix black screen)
+    document.getElementById("start-overlay").addEventListener("click", () => {
       document.getElementById("start-overlay").style.display = "none";
       player.play(true);
-
-      const videoContainer = document.querySelector(".jwplayer video");
-
-      if (videoContainer && videoContainer.requestFullscreen) {
-        await videoContainer.requestFullscreen();
-      } else if (videoContainer && videoContainer.webkitRequestFullscreen) {
-        await videoContainer.webkitRequestFullscreen();
-      } else if (videoContainer && videoContainer.msRequestFullscreen) {
-        await videoContainer.msRequestFullscreen();
-      }
+      player.setFullscreen(true);
     });
 
-    // Disable right-click & shortcuts
+    // Disable right-click & common inspect shortcuts
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.onkeydown = function(e) {
       if (e.key === "F12" || 
