@@ -3,25 +3,137 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KQTV PHILIPPINES PLAYER</title>
+  <title>KQTV PHILIPPINES</title>
+  <script src="https://cdn.jwplayer.com/libraries/IDzF9Zmk.js"></script>
   <style>
     html, body {
       margin: 0;
       padding: 0;
+      background: #000;
       width: 100%;
       height: 100%;
-      background: #000;
+      overflow: hidden; /* ✅ Block scroll and overflow */
     }
 
-    iframe {
-      display: block;
-      width: 100vw;
-      height: 100vh;
-      border: none;
+    #player-container {
+      position: relative;
+      width: 100%;
+      height: auto;
+    }
+
+    #player-container video,
+    #player-container .jwplayer {
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    .overlay-logo {
+      position: absolute;
+      top: 10px;
+      z-index: 9999;
+      pointer-events: none;
+    }
+
+    .top-left { left: 10px; }
+    .top-right { right: 10px; }
+
+    @media (max-width: 768px) {
+      .overlay-logo {
+        width: 60px;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .overlay-logo {
+        width: 100px;
+      }
+    }
+
+    /* Show only volume and fullscreen */
+    .jw-button-container .jw-icon:not(.jw-icon-volume):not(.jw-icon-fullscreen) {
+      display: none !important;
+    }
+
+    .jw-icon-picture-in-picture {
+      display: none !important;
+    }
+
+    .jw-controlbar {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+    }
+
+    .jw-button-container {
+      display: flex !important;
+      align-items: center !important;
+    }
+
+    .jw-controlbar-left .jw-icon-volume {
+      display: inline-flex !important;
+    }
+
+    .jw-controlbar-right .jw-icon-fullscreen {
+      display: inline-flex !important;
+    }
+
+    .jw-controlbar-left .jw-icon:not(.jw-icon-volume),
+    .jw-controlbar-right .jw-icon:not(.jw-icon-fullscreen) {
+      display: none !important;
     }
   </style>
 </head>
 <body>
-  <iframe src="https://kqtvphplayer.weebly.com" allowfullscreen></iframe>
+  <div id="player-container"></div>
+
+  <script>
+    const player = jwplayer("player-container").setup({
+      file: "https://0fj.cc/Kphm3u8",
+      type: "hls",
+      width: "100%",
+      height: "100%",
+      autostart: true,
+      mute: true,
+      displaytitle: true,
+      title: "KQTV PHILIPPINES",
+      controls: true,
+      stretching: "uniform",
+      abouttext: "KQTV PHILIPPINES",
+      aboutlink: "https://kqtvphilippines.xyz/"
+    });
+
+    player.on('ready', function () {
+      const container = player.getContainer();
+      container.style.position = "relative";
+
+      const topLeftLogo = document.createElement("img");
+      topLeftLogo.src = "https://i.ibb.co/JVMSGcP/MTRCB-RATED-PG-LOGO-DOG-FIX.png";
+      topLeftLogo.className = "overlay-logo top-left";
+      container.appendChild(topLeftLogo);
+
+      const topRightLogo = document.createElement("img");
+      topRightLogo.src = "https://i.ibb.co/rKWg8RLK/Untitled-design.png";
+      topRightLogo.className = "overlay-logo top-right";
+      container.appendChild(topRightLogo);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      e.stopPropagation();
+    }, true);
+  </script>
+
+  <!-- 🔒 Disable Inspect -->
+  <script>
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    document.onkeydown = function(e) {
+      if (e.key === "F12" ||
+          (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C")) ||
+          (e.ctrlKey && e.key === "U")) {
+        e.preventDefault();
+        return false;
+      }
+    };
+  </script>
 </body>
 </html>
