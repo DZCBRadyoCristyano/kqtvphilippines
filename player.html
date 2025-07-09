@@ -21,7 +21,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       width: 100vw;
-      height: 56.25vw; /* 16:9 */
+      height: 56.25vw; /* 16:9 ratio */
       max-height: 100vh;
       background: #000;
       overflow: hidden;
@@ -49,6 +49,8 @@
       top: 10px;
       z-index: 9999;
       pointer-events: none;
+      width: clamp(40px, 8vw, 70px); /* Auto-resize */
+      height: auto;
     }
 
     .top-left { left: 10px; }
@@ -57,7 +59,7 @@
     .live-badge {
       position: absolute;
       top: 10px;
-      left: 120px;
+      left: 90px;
       display: flex;
       align-items: center;
       background: rgba(255, 0, 0, 0.9);
@@ -119,19 +121,6 @@
       pointer-events: none;
     }
 
-    @media (max-width: 768px) {
-      .overlay-logo { width: 60px; }
-      .live-badge {
-        font-size: 12px;
-        padding: 3px 8px;
-        left: 75px;
-      }
-      .now-playing, .clock {
-        font-size: 12px;
-        padding: 4px 8px;
-      }
-    }
-
     .jw-button-container .jw-icon:not(.jw-icon-volume):not(.jw-icon-fullscreen) {
       display: none !important;
     }
@@ -190,7 +179,6 @@
       const container = player.getContainer();
       container.style.position = "relative";
 
-      // Logos
       const topLeftLogo = document.createElement("img");
       topLeftLogo.src = "https://i.ibb.co/JVMSGcP/MTRCB-RATED-PG-LOGO-DOG-FIX.png";
       topLeftLogo.className = "overlay-logo top-left";
@@ -201,19 +189,16 @@
       topRightLogo.className = "overlay-logo top-right";
       container.appendChild(topRightLogo);
 
-      // Live badge
       const liveBadge = document.createElement("div");
       liveBadge.className = "live-badge";
       liveBadge.innerText = "LIVE";
       container.appendChild(liveBadge);
 
-      // Now Playing
       const nowPlaying = document.createElement("div");
       nowPlaying.className = "now-playing";
       nowPlaying.innerText = "Now Playing: KQTV PHILIPPINES";
       container.appendChild(nowPlaying);
 
-      // Clock
       const clock = document.createElement("div");
       clock.className = "clock";
       container.appendChild(clock);
