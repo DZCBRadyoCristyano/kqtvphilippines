@@ -11,6 +11,8 @@
       width: 100%;
       height: 100%;
       background: #000;
+      overflow: hidden; /* ito ang hiniling mo */
+      user-select: none;
     }
 
     iframe {
@@ -20,6 +22,33 @@
       border: none;
     }
   </style>
+  <script>
+    // Disable Right Click
+    document.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
+    });
+
+    // Disable F12, Ctrl+Shift+I, Ctrl+U
+    document.addEventListener('keydown', function (e) {
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
+        (e.ctrlKey && e.key === 'U')
+      ) {
+        e.preventDefault();
+      }
+    });
+
+    // Attempt to block DevTools detection (not reliable)
+    setInterval(() => {
+      const devtools = /./;
+      devtools.toString = function () {
+        this.opened = true;
+        throw new Error("DevTools detected");
+      };
+      console.log('%c', devtools);
+    }, 1000);
+  </script>
 </head>
 <body>
   <iframe src="https://kqtvphplayer.weebly.com" allowfullscreen></iframe>
