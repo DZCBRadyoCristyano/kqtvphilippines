@@ -20,10 +20,33 @@
       height: 100vh;
     }
   </style>
+  <script>
+    // Disable right-click
+    document.addEventListener('contextmenu', e => e.preventDefault());
+
+    // Disable F12, Ctrl+Shift+I/J/C, Ctrl+U
+    document.addEventListener('keydown', e => {
+      if (
+        e.key === 'F12' || 
+        (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) || 
+        (e.ctrlKey && e.key.toUpperCase() === 'U')
+      ) {
+        e.preventDefault();
+      }
+    });
+
+    // Simple anti-debugger
+    setInterval(() => {
+      const before = performance.now();
+      debugger;
+      const after = performance.now();
+      if (after - before > 100) {
+        location.href = 'about:blank'; // redirect or blank page
+      }
+    }, 2000);
+  </script>
 </head>
 <body>
   <iframe src="https://kqtvph.weebly.com" allowfullscreen></iframe>
 </body>
 </html>
-
-
